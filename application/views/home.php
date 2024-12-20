@@ -94,7 +94,7 @@
 										>Store</a>
 									</li>
 									<li class="nav-item">
-										<a class="nLogo" href="home.html"><img src="images/logo.png" alt="Botanical" class="img-fluid"></a>
+										<a class="nLogo" href="<?= site_url('/'); ?>"><img src="images/logo.png" alt="Botanical" class="img-fluid"></a>
 									</li>
 									<li class="nav-item">
 										<a class="d-block" href="<?= site_url('/about'); ?>">About</a>
