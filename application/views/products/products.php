@@ -222,84 +222,6 @@
 
 	</script> -->
 
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			const products = Array.from(document.querySelectorAll("#product-list > div"));
-			const paginationContainer = document.getElementById("pagination");
-			const resultsCount = document.querySelector(".results-count");
-			const perPage = 9; // Items per page
-			let currentPage = 1;
-
-			function renderPage(page) {
-				// Hide all products
-				products.forEach((product) => (product.style.display = "none"));
-
-				// Calculate start and end indices
-				const start = (page - 1) * perPage;
-				const end = Math.min(start + perPage, products.length); // Ensure end doesn't exceed the total products
-
-				// Show products for the current page
-				products.slice(start, end).forEach((product) => (product.style.display = "block"));
-
-				// Update the results count text
-				if (products.length > 0) {
-					resultsCount.textContent = `Showing ${start + 1}–${end} of ${products.length} results`;
-				} else {
-					resultsCount.textContent = "No results found";
-				}
-
-				// Update pagination controls
-				renderPaginationControls();
-			}
-
-			function renderPaginationControls() {
-				const totalPages = Math.ceil(products.length / perPage);
-				paginationContainer.innerHTML = "";
-
-				// Add "Previous" button
-				if (currentPage > 1) {
-					const prevBtn = document.createElement("button");
-					// prevBtn.textContent = "Previous";
-					prevBtn.className = "btn btn-sm mx-1 btn-outline-primary fas fa-chevron-left";
-					prevBtn.addEventListener("click", () => {
-						currentPage -= 1;
-						renderPage(currentPage);
-					});
-					paginationContainer.appendChild(prevBtn);
-				}
-
-				// Add page numbers
-				for (let i = 1; i <= totalPages; i++) {
-					const btn = document.createElement("button");
-					btn.textContent = i;
-					btn.className =
-						"btn btn-sm mx-1 " + (i === currentPage ? "btn-primary" : "btn-outline-primary");
-					btn.addEventListener("click", () => {
-						currentPage = i;
-						renderPage(currentPage);
-					});
-					paginationContainer.appendChild(btn);
-				}
-
-				// Add "Next" button
-				if (currentPage < totalPages) {
-					const nextBtn = document.createElement("button");
-					// nextBtn.textContent = "Next";
-					nextBtn.className = "btn btn-sm mx-1 btn-outline-primary fas fa-chevron-right";
-					nextBtn.addEventListener("click", () => {
-						currentPage += 1;
-						renderPage(currentPage);
-					});
-					paginationContainer.appendChild(nextBtn);
-				}
-			}
-
-			// Initial render
-			renderPage(currentPage);
-		});
-	</script>
-
-
 	<!-- search -->
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
@@ -362,14 +284,14 @@
 					});
 				} else if (criteria === 'price-asc') {
 					sortedProducts = products.sort((a, b) => {
-						const priceA = parseFloat(a.querySelector(".price").textContent.replace('Rp.', '').trim());
-						const priceB = parseFloat(b.querySelector(".price").textContent.replace('Rp.', '').trim());
+						const priceA = parseFloat(a.querySelector(".price").textContent.replace('Rp.', '').replace(/\./g, '').trim());
+						const priceB = parseFloat(b.querySelector(".price").textContent.replace('Rp.', '').replace(/\./g, '').trim());
 						return priceA - priceB;
 					});
 				} else if (criteria === 'price-desc') {
 					sortedProducts = products.sort((a, b) => {
-						const priceA = parseFloat(a.querySelector(".price").textContent.replace('Rp.', '').trim());
-						const priceB = parseFloat(b.querySelector(".price").textContent.replace('Rp.', '').trim());
+						const priceA = parseFloat(a.querySelector(".price").textContent.replace('Rp.', '').replace(/\./g, '').trim());
+						const priceB = parseFloat(b.querySelector(".price").textContent.replace('Rp.', '').replace(/\./g, '').trim());
 						return priceB - priceA;
 					});
 				}
